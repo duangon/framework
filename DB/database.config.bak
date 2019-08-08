@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<connectionStrings>
+  <add name="BaseDb" connectionString="Server=localhost; Database=adms7pro; Trusted_Connection=True;" providerName="System.Data.SqlClient" /> 
+  <!--<add name="BaseDb" connectionString="Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost )(PORT=1521))(CONNECT_DATA=(SERVER = DEDICATED)(SERVICE_NAME=ORCL)));User Id=learun;Password=qwert12345;" providerName="Oracle.ManagedDataAccess.Client"/>-->
+</connectionStrings>
