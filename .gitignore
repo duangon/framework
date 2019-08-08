@@ -1,0 +1,31 @@
+#【注意项】要忽略的文件夹一定要结尾 /* ，否则不忽略规则将无法生效
+#例如：在已忽略文件夹中不忽略指定文件夹或文件
+#/node_modules/*
+#!/node_modules/layer/
+#!/node_modules/custom/layer.js
+
+#忽略nodejs的框架文件
+/node_modules/*
+
+#忽略vscode生成的文件
+/.vscode/
+
+#忽略windows生成的缩略图文件
+Thunbs.db
+
+#忽略mac系统生成的文件
+*.DS_Store
+
+#忽略Visual Studio生成的文件
+.vs/*
+bin/*
+obj/*
+
+#忽略.gitignore
+#目的是只忽略本地文件，不影响其他人
+#如果注释掉此项，则表示所有人使用同样的忽略规则
+#.gitignore
+
+**/bin/
+**/obj/
+**/database.config
