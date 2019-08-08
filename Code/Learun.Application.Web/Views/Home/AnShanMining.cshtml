@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "风尚版风格";
+    Layout = "~/Views/Shared/_AnShanMining.cshtml";
+}
+@Html.AppendCssFile("/Views/Home/AnShanMining/index.css")
+
+<div class="col-sm-12">
+    <div class="row" style="height:30px;line-height:30px;background-color:red">
+        <div style="width:100%;height:30px;background-color: #3F57A0;">
+            <ul style="float:right;width: 30%;height: 100%;line-height: 30px; color: #fff;">
+                <li style="float:left;width: 20%;">人员：@ViewBag.realname</li>
+                <li style="float:left;width: 30%;">单位：@ViewBag.company</li>
+                <li style="float:left;width: 25%;">机构：@ViewBag.department</li>
+                <li style="float:left;width: 25%;">岗位：@ViewBag.post</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row" style="height:65px;line-height:65px;background-color: #FBFBFB;">
+        <div class="pull-left col-sm-3">
+            <a href="#" style="background-color: #FBFBFB;">
+                <img style="padding-left:25px; height:65px;width:140px;float:left;" src="~/Content/images/logo/anshanmining.png" />
+                <span class="logo-lg">管理平台</span>
+            </a>
+        </div>
+        <div class="pull-right col-sm-8">
+            <div class="pull-right">
+                <ul class="nav navbar-nav" style="height:65px">
+                    <li style="width: 95px;text-align: center;">
+                        <a href="javascript:void(0);" id="lr_exit_btn" style="padding:0px;height:65px">
+                            <img style="float: left;margin-top: 20px;" src="~/Content/images/head/xian.png" />
+                            <img style="height:42%;margin-top: 10%;margin-bottom: 6%;" src="~/Content/images/head/重新登录 3x.png" />
+                            <div>重新登录</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="pull-right">
+                <ul class="nav navbar-nav" style="height:65px">
+                    <li style="width: 95px;text-align: center;">
+                        <a href="javascript:void(0);" id="lr_task_btn" style="padding:0px;height:65px">
+                            <img style="float: left;margin-top: 20px;" src="~/Content/images/head/xian.png" />
+                            <img style="height:42%;margin-top: 10%;margin-bottom: 6%;" src="~/Content/images/head/待办任务 3x.png" />
+                            <div>待办任务</div>
+                        </a>
+                        <span id="badge_Audit" style="position:relative;top:-85px;right:-25px;" class="badge pill-pane btn-danger">99+</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="pull-right">
+                <ul class="nav navbar-nav" style="height:65px">
+                    <li style="width: 95px;text-align: center;">
+                        <a href="javascript:void(0);" id="lr_password_btn" style="padding:0px;height:65px">
+                            <img style="height:42%;margin-top: 10%;margin-bottom: 6%;" src="~/Content/images/head/待办任务 3x.png" />
+                            <div>修改密码</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="lr-lg-setting" id="lr_lg_setting">
+    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></a>
+    <ul class="dropdown-menu"></ul>
+</div>
+
+@Html.AppendJsFile("/Views/Home/AnShanMining/index.js")

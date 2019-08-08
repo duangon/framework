@@ -1,0 +1,25 @@
+﻿namespace Learun.Application.Organization
+{
+    /// <summary>
+
+
+
+    /// 日 期：2018.03.27
+    /// 部门数据模型
+    /// </summary>
+    public class DepartmentModel
+    {
+        /// <summary>
+        /// 部门上级id
+        /// </summary>
+        public string parentId { get; set; }
+        /// <summary>
+        /// 公司主键
+        /// </summary>
+        public string companyId { get; set; }
+        /// <summary>
+        /// 公司名字
+        /// </summary>
+        public string name { get; set; }
+    }
+}
