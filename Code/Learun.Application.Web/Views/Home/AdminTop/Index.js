@@ -1,1 +1,742 @@
-﻿var bootstrap = function (a, h) { var i = { init: function () { this.load(); this.bind() }, load: function () { var A = h.clientdata.get(["modulesTree"]); var B = "0"; var z = A[B] || []; var o = a('<ul class="lr-first-menu-list"></ul>'); for (var t = 0, w = z.length; t < w; t++) { var u = z[t]; if (u.F_IsMenu == 1) { var n = a("<li></li>"); if (!!u.F_Description) { n.attr("title", u.F_Description) } var y = '<a id="' + u.F_ModuleId + '" href="javascript:void(0);" class="lr-menu-item">'; y += '<i class="' + u.F_Icon + ' lr-menu-item-icon"></i>'; y += '<span class="lr-menu-item-text">' + u.F_FullName + "</span>"; y += "</a>"; n.append(y); var F = A[u.F_ModuleId] || []; var q = a('<ul class="lr-second-menu-list"></ul>'); var E = false; for (var v = 0, G = F.length; v < G; v++) { var C = F[v]; if (C.F_IsMenu == 1) { E = true; var p = a("<li></li>"); if (!!C.F_Description) { p.attr("title", C.F_Description) } var D = '<a id="' + C.F_ModuleId + '" href="javascript:void(0);" class="lr-menu-item" >'; D += '<i class="' + C.F_Icon + ' lr-menu-item-icon"></i>'; D += '<span class="lr-menu-item-text">' + C.F_FullName + "</span>"; D += "</a>"; p.append(D); var K = A[C.F_ModuleId] || []; var s = a('<ul class="lr-three-menu-list"></ul>'); var J = false; for (var x = 0, L = K.length; x < L; x++) { var H = K[x]; if (H.F_IsMenu == 1) { J = true; var r = a("<li></li>"); r.attr("title", H.F_FullName); var I = '<a id="' + H.F_ModuleId + '" href="javascript:void(0);" class="lr-menu-item" >'; I += '<i class="' + H.F_Icon + ' lr-menu-item-icon"></i>'; I += '<span class="lr-menu-item-text">' + H.F_FullName + "</span>"; I += "</a>"; r.append(I); s.append(r) } } if (J) { p.addClass("lr-meun-had"); p.find("a").addClass("open").append('<span class="lr-menu-item-arrow"><i class="fa fa-angle-left"></i></span>'); p.append(s) } q.append(p) } } if (E) { q.attr("data-value", u.F_ModuleId); a("#lr_second_menu_wrap").append(q) } o.append(n) } } a("#lr_frame_menu").html(o); a(".lr-menu-item-text").each(function () { var m = a(this); var M = m.text(); h.language.get(M, function (N) { m.text(N); m.parent().parent().attr("title", N) }) }) }, bind: function () { a("#lr_frame_menu").lrscroll(); a("#lr_second_menu_wrap").lrscroll(); var m = 0; var n = a(".lr-first-menu-list").children().each(function () { m += a(this).outerWidth() }); a(".lr-first-menu-list").css({ width: m }); a(".lr-first-menu-list").parent().css({ width: m }); a("#lr_frame_menu .lr-menu-item").on("click", function () { var o = a(this); var r = o.attr("id"); var q = h.clientdata.get(["modulesMap", r]); switch (q.F_Target) { case "iframe": if (h.validator.isNotNull(q.F_UrlAddress).code) { h.frameTab.open(q) } else { } break; case "expand": if (!o.hasClass("active")) { a("#lr_frame_menu .active").removeClass("active"); o.addClass("active"); o.parent().addClass("active"); var p = a("#lr_second_menu_wrap"); p.find(".lr-second-menu-list").hide(); p.find('.lr-second-menu-list[data-value="' + r + '"]').show() } break } }); a("#lr_second_menu_wrap .lr-menu-item").on("click", function () { var o = a(this); var r = o.attr("id"); var q = h.clientdata.get(["modulesMap", r]); switch (q.F_Target) { case "iframe": if (h.validator.isNotNull(q.F_UrlAddress).code) { h.frameTab.open(q) } else { } break; case "expand": var p = o.next(); if (p.is(":visible")) { p.slideUp(500, function () { o.removeClass("open") }) } else { p.slideDown(300, function () { o.addClass("open") }) } break } }); a(".lr-first-menu-list>li").eq(0).find("a").trigger("click"); a("#lr_frame_menu_btn").on("click", function () { var o = a("body"); if (o.hasClass("lr-menu-closed")) { o.removeClass("lr-menu-closed") } else { o.addClass("lr-menu-closed") } }); a("#lr_second_menu_wrap a").hover(function () { if (a("body").hasClass("lr-menu-closed")) { var o = a(this).attr("id"); var p = a("#" + o + ">span").text(); layer.tips(p, a(this)) } }, function () { if (a("body").hasClass("lr-menu-closed")) { layer.closeAll("tips") } }) } }; i.init(); var b = {}; var c = {}; var l = {}; var g = ""; var d = function (n) { var m = top.$.rootUrl; switch (n.img) { case "0": m += "/Content/images/head/on-girl.jpg"; break; case "1": m += "/Content/images/head/on-boy.jpg"; break; default: m += "/LR_OrganizationModule/User/GetImg?userId=" + n.id; break }return m }; var k = function (n, o) { var m = h.clientdata.get(["userinfo"]); h.clientdata.getAsync("user", { key: m.userId, callback: function (q, r) { q.id = r.key; var p = '                <div class="me im-time">' + (o || "") + '</div>                <div class="im-me">                    <div class="headimg"><img src="' + d(q) + '"></div>                    <div class="arrow"></div>                    <span class="content">' + n + "</span>                </div>"; a(".lr-im-msgcontent .lr-scroll-box").append(p); a(".lr-im-msgcontent").lrscrollSet("moveBottom") } }) }; var j = function (o, m, n) { h.clientdata.getAsync("user", { key: o, callback: function (q, r) { q.id = r.key; var p = '                <div class="im-time">' + (n || "") + '</div>                <div class="im-other">                    <div class="headimg"><img src="' + d(q) + '"></div>                    <div class="arrow"></div>                    <span class="content">' + m + "</span>                </div>"; a(".lr-im-msgcontent .lr-scroll-box").append(p); a(".lr-im-msgcontent").lrscrollSet("moveBottom") } }) }; var e = function (o) { var n = new Date(); var m = n.DateDiff("d", o); if (m <= 1) { return h.formatDate(o, "hh:mm:ss") } else { return h.formatDate(o, "yyyy/MM/dd") } }; var f = { init: function () { this.bind(); this.load() }, load: function () { h.clientdata.getAllAsync("company", { callback: function (n) { a.each(n, function (o, p) { b[p.parentId] = b[p.parentId] || []; p.id = o; b[p.parentId].push(p) }); var m = a("#lr_im_content_userlist .lr-scroll-box"); a.each(b["0"], function (p, q) { var o = '                            <div class="lr-im-company-item">                                <div class="lr-im-item-name lr-im-company" data-value="' + q.id + '"  data-deep="0" >                                    <i class="fa fa-angle-right"></i>' + q.name + "                                </div>                            </div>"; m.append(o) }); h.clientdata.getAllAsync("department", { callback: function (o) { a.each(o, function (p, q) { q.id = p; if (q.parentId == "0") { c[q.companyId] = c[q.companyId] || []; c[q.companyId].push(q) } else { c[q.parentId] = c[q.parentId] || []; c[q.parentId].push(q) } }); h.clientdata.getAllAsync("user", { callback: function (p) { a.each(p, function (q, r) { r.id = q; if (r.departmentId) { l[r.departmentId] = l[r.departmentId] || []; l[r.departmentId].push(r) } else { if (r.companyId) { l[r.companyId] = l[r.companyId] || []; l[r.companyId].push(r) } } }); h.im.getContacts(function (r) { var q = a("#lr_immsg_userlist .lr-scroll-box"); a.each(r, function (s, t) { var u = '                                            <div class="msg-item' + (t.F_IsRead == "1" ? "imHasMsg" : "") + '" data-value="' + t.F_OtherUserId + '" >                                                <div class="photo">                                                    <img src="' + top.$.rootUrl + '/Content/images/head/on-boy.jpg">                                                    <div class="point"></div>                                                </div>                                                <div class="name"></div>                                                <div class="msg">' + (t.F_Content || "") + '</div>                                                <div class="date">' + e(t.F_Time) + "</div>                                            </div>"; q.append(u); h.clientdata.getAsync("user", { key: t.F_OtherUserId, callback: function (w, x) { var v = q.find('[data-value="' + x.key + '"]'); v.find(".name").text(w.name); w.id = x.key; v.find("img").attr("src", d(w)); v = null } }) }) }) } }) } }) } }) }, bind: function () { a("#lr_immsg_userlist").lrscroll(); a("#lr_im_content_userlist").lrscroll(); a(".lr-im-msgcontent").lrscroll(); a(".lr-im-bell").on("click", function () { var m = a(this); if (m.hasClass("open")) { m.removeClass("open"); a(".lr-im-body").removeClass("open"); a(".lr-im-black-overlay").hide(); g = "" } else { m.addClass("open"); a(".lr-im-bell .point").hide(); a(".lr-im-body").addClass("open") } }); a(".lr-im-title .title-item").on("click", function () { var m = a(this); if (!m.hasClass("active")) { a(".lr-im-body>.active").removeClass("active"); a(".lr-im-title>.active").removeClass("active"); m.addClass("active"); var n = m.attr("data-value"); a("#" + n).addClass("active") } }); a("#lr_im_content_userlist .lr-scroll-box").on("click", function (s) { s = s || window.event; var t = s.target || s.srcElement; var m = a(t); if (t.tagName == "IMG" || t.tagName == "I") { m = m.parent() } if (m.hasClass("lr-im-company")) { if (m.hasClass("open")) { m.removeClass("open"); m.parent().find(".lr-im-user-list").remove() } else { var v = m.attr("data-value"); var r = parseInt(m.attr("data-deep")); var n = a('<div class="lr-im-user-list" ></div>'); n.css({ "padding-left": "10px" }); var u = false; a.each(l[v] || [], function (y, z) { var x = '                            <div class="lr-im-company-item">                                <div class="lr-im-item-name lr-im-user" data-value="' + z.id + '" >                                     <img src="' + d(z) + '" >' + z.name + "                                </div>                            </div>"; n.append(x); u = true }); a.each(c[v] || [], function (y, z) { var x = '                            <div class="lr-im-company-item">                                <div class="lr-im-item-name lr-im-department" data-value="' + z.id + '"  data-deep="' + (r + 1) + '" >                                    <i class="fa fa-angle-right"></i>' + z.name + "                                </div>                            </div>"; n.append(x); u = true }); a.each(b[v] || [], function (y, z) { var x = '                            <div class="lr-im-company-item">                                <div class="lr-im-item-name lr-im-company" data-value="' + z.id + '"  data-deep="' + (r + 1) + '" >                                    <i class="fa fa-angle-right"></i>' + z.name + "                                </div>                            </div>"; n.append(x); u = true }); if (u) { m.parent().append(n) } m.addClass("open") } return false } else { if (m.hasClass("lr-im-department")) { if (m.hasClass("open")) { m.removeClass("open"); m.parent().find(".lr-im-user-list").remove() } else { var v = m.attr("data-value"); var r = parseInt(m.attr("data-deep")); var n = a('<div class="lr-im-user-list" ></div>'); n.css({ "padding-left": "10px" }); var u = false; a.each(l[v] || [], function (y, z) { var x = '                            <div class="lr-im-company-item">                                <div class="lr-im-item-name lr-im-user" data-value="' + z.id + '" >                                     <img src="' + d(z) + '" >' + z.name + "                                </div>                            </div>"; n.append(x); u = true }); a.each(c[v] || [], function (y, z) { var x = '                            <div class="lr-im-company-item">                                <div class="lr-im-item-name lr-im-department" data-value="' + z.id + '"  data-deep="' + (r + 1) + '" >                                    <i class="fa fa-angle-right"></i>' + z.name + "                                </div>                            </div>"; n.append(x); u = true }); if (u) { m.parent().append(n) } m.addClass("open") } } else { if (m.hasClass("lr-im-user")) { var v = m.attr("data-value"); var p = a("#lr_immsg_userlist .lr-scroll-box"); var o = p.find('[data-value="' + v + '"]'); a(".lr-im-title .title-item").eq(0).trigger("click"); g = v; if (o.length > 0) { p.prepend(o); o.trigger("click") } else { var w = m.find("img").attr("src"); var q = '                            <div class="msg-item" data-value="' + v + '" >                                <div class="photo">                                    <img src="' + w + '">                                    <div class="point"></div>                                </div>                                <div class="name"></div>                                <div class="msg"></div>                                <div class="date"></div>                            </div>'; p.prepend(q); o = p.find('[data-value="' + v + '"]'); h.clientdata.getAsync("user", { key: v, callback: function (x, y) { p.find('[data-value="' + y.key + '"] .name').text(x.name); o.trigger("click") } }); h.im.addContacts(v) } } } } }); a("#lr_immsg_userlist .lr-scroll-box").on("click", function (o) { o = o || window.event; var p = o.target || o.srcElement; var m = a(p); if (!m.hasClass("msg-item")) { m = m.parents(".msg-item") } if (m.length > 0) { if (!m.hasClass("active")) { var q = m.find(".name").text(); g = m.attr("data-value"); a("#lr_immsg_userlist .lr-scroll-box .active").removeClass("active"); m.addClass("active"); a(".lr-im-black-overlay").show(); var n = a(".lr-im-dialog"); n.find(".im-title").text("与" + q + "对话中"); a("#lr_im_input").val(""); a("#lr_im_input").select(); a(".lr-im-msgcontent .lr-scroll-box").html(""); h.im.getMsgList(g, function (s) { var u = s.length; if (u > 0) { for (var t = u - 1; t >= 0; t--) { var r = s[t]; h.clientdata.getAsync("user", { key: r.userId, msg: r.content, time: r.time, callback: function (w, y) { w.id = y.key; var x = h.clientdata.get(["userinfo"]); var v = '                                            <div class="im-time ' + (x.userId == y.key ? "me" : "") + ' ">' + y.time + '</div>                                            <div class="' + (x.userId == y.key ? "im-me" : "im-other") + '">                                                <div class="headimg"><img src="' + d(w) + '"></div>                                                <div class="arrow"></div>                                                <span class="content">' + y.msg + "</span>                                            </div>"; a(".lr-im-msgcontent .lr-scroll-box").prepend(v) } }) } a(".lr-im-msgcontent").lrscrollSet("moveBottom") } }, m.hasClass("imHasMsg")); m.removeClass("imHasMsg"); h.im.updateContacts(g) } } }); a(".lr-im-search input").on("keypress", function (o) { o = o || window.event; if (o.keyCode == "13") { var n = a(this); var p = n.val(); var m = a("#lr_im_content_userlist .lr-scroll-box"); m.html(""); if (p) { h.clientdata.getAllAsync("user", { callback: function (q) { a.each(q, function (s, t) { if (t.name.indexOf(p) != -1) { t.id = s; var r = '                                        <div class="lr-im-company-item">                                            <div class="lr-im-item-name lr-im-user" data-value="' + t.id + '" >                                                 <img src="' + d(t) + '" >' + t.name + "                                            </div>                                        </div>"; m.append(r) } }) } }) } else { a.each(b["0"], function (r, s) { var q = '                            <div class="lr-im-company-item">                                <div class="lr-im-item-name lr-im-company" data-value="' + s.id + '"  data-deep="0" >                                    <i class="fa fa-angle-right"></i>' + s.name + "                                </div>                            </div>"; m.append(q) }) } } }); a("#lr_im_input").on("keypress", function (n) { n = n || window.event; if (n.keyCode == "13") { var o = a(this).val(); a(this).val(""); if (o.replace(/(^\s*)|(\s*$)/g, "") != "") { var p = h.im.sendMsg(g, o); k(o, p); var m = a('#lr_immsg_userlist .lr-scroll-box [data-value="' + g + '"]'); m.find(".msg").text(o); m.find(".date").text(e(h.getDate("yyyy-MM-dd hh:mm:ss"))); m = null } return false } }); h.im.registerRevMsg(function (r, q, o) { var n = a("#lr_immsg_userlist .lr-scroll-box"); var m = n.find('[data-value="' + r + '"]'); if (r == g) { j(r, q, o); h.im.updateContacts(r); m.find(".msg").text(q); m.find(".date").text(e(o)) } else { if (m.length > 0) { n.prepend(m); if (!m.hasClass("imHasMsg")) { m.addClass("imHasMsg") } m.find(".msg").text(q); m.find(".date").text(e(o)) } else { var p = '                            <div class="msg-item" data-value="' + r + '" >                                <div class="photo">                                    <img src="' + top.$.rootUrl + '/Content/images/head/on-boy.jpg">                                    <div class="point"></div>                                </div>                                <div class="name"></div>                                <div class="msg">' + q + '</div>                                <div class="date">' + e(o) + "</div>                            </div>"; n.prepend(p); h.clientdata.getAsync("user", { key: r, callback: function (t, u) { var s = n.find('[data-value="' + u.key + '"]'); s.find(".name").text(t.name); t.id = u.key; s.find("img").attr("src", d(t)); s = null } }) } } if (!a(".lr-im-bell").hasClass("open")) { a(".lr-im-bell .point").show() } }); a("#lr_im_look_msg_btn").on("click", function () { h.layerForm({ id: "LookMsgIndex", title: "查看聊天记录-" + a("#lr_im_msglist .lr-im-right .lr-im-touser").text(), url: top.$.rootUrl + "/LR_IM/IMMsg/Index?userId=" + g, width: 800, height: 500, maxmin: true, btn: null }) }); a(".im-close").on("click", function () { a('#lr_immsg_userlist .lr-scroll-box [data-value="' + g + '"]').removeClass("active"); a(".lr-im-black-overlay").hide(); g = "" }) } }; f.init() };
+﻿/*
+ * 版 本 Learun-ADMS V7.0.0 力软敏捷开发框架(http://www.learun.cn)
+ * Copyright (c) 2013-2018 上海力软信息技术有限公司
+ * 创建人：力软-前端开发组
+ * 日 期：2017.03.16
+ * 描 述：顶部菜单皮肤	
+ */
+var bootstrap = function ($, learun) {
+    "use strict";
+    // 菜单操作
+    var meuns = {
+        init: function () {
+            this.load();
+            this.bind();
+        },
+        load: function () {
+            var modulesTree = learun.clientdata.get(['modulesTree']);
+            // 第一级菜单
+            var parentId = '0';
+            var modules = modulesTree[parentId] || [];
+            var $firstmenus = $('<ul class="lr-first-menu-list"></ul>');
+            for (var i = 0, l = modules.length; i < l; i++) {
+                var item = modules[i];
+                if (item.F_IsMenu == 1) {
+                    var $firstMenuItem = $('<li></li>');
+                    if (!!item.F_Description) {
+                        $firstMenuItem.attr('title', item.F_Description);
+                    }
+                    var menuItemHtml = '<a id="' + item.F_ModuleId + '" href="javascript:void(0);" class="lr-menu-item">';
+                    menuItemHtml += '<i class="' + item.F_Icon + ' lr-menu-item-icon"></i>';
+                    menuItemHtml += '<span class="lr-menu-item-text">' + item.F_FullName + '</span>';
+                    menuItemHtml += '</a>';
+                    $firstMenuItem.append(menuItemHtml);
+                    // 第二级菜单
+                    var secondModules = modulesTree[item.F_ModuleId] || [];
+                    var $secondMenus = $('<ul class="lr-second-menu-list"></ul>');
+                    var secondMenuHad = false;
+                    for (var j = 0, sl = secondModules.length; j < sl; j++) {
+                        var secondItem = secondModules[j];
+                        if (secondItem.F_IsMenu == 1) {
+                            secondMenuHad = true;
+                            var $secondMenuItem = $('<li></li>');
+                            if (!!secondItem.F_Description) {
+                                $secondMenuItem.attr('title', secondItem.F_Description);
+                            }
+                            var secondItemHtml = '<a id="' + secondItem.F_ModuleId + '" href="javascript:void(0);" class="lr-menu-item" >';
+                            secondItemHtml += '<i class="' + secondItem.F_Icon + ' lr-menu-item-icon"></i>';
+                            secondItemHtml += '<span class="lr-menu-item-text">' + secondItem.F_FullName + '</span>';
+                            secondItemHtml += '</a>';
+
+                            $secondMenuItem.append(secondItemHtml);
+                            // 第三级菜单
+                            var threeModules = modulesTree[secondItem.F_ModuleId] || [];
+                            var $threeMenus = $('<ul class="lr-three-menu-list"></ul>');
+                            var threeMenuHad = false;
+                            for (var m = 0, tl = threeModules.length; m < tl; m++) {
+                                var threeItem = threeModules[m];
+                                if (threeItem.F_IsMenu == 1) {
+                                    threeMenuHad = true;
+                                    var $threeMenuItem = $('<li></li>');
+                                    $threeMenuItem.attr('title', threeItem.F_FullName);
+                                    var threeItemHtml = '<a id="' + threeItem.F_ModuleId + '" href="javascript:void(0);" class="lr-menu-item" >';
+                                    threeItemHtml += '<i class="' + threeItem.F_Icon + ' lr-menu-item-icon"></i>';
+                                    threeItemHtml += '<span class="lr-menu-item-text">' + threeItem.F_FullName + '</span>';
+                                    threeItemHtml += '</a>';
+                                    $threeMenuItem.append(threeItemHtml);
+                                    $threeMenus.append($threeMenuItem);
+                                }
+                            }
+                            if (threeMenuHad) {
+                                $secondMenuItem.addClass('lr-meun-had');
+                                $secondMenuItem.find('a').addClass('open').append('<span class="lr-menu-item-arrow"><i class="fa fa-angle-left"></i></span>');
+                                $secondMenuItem.append($threeMenus);
+                            }
+                            $secondMenus.append($secondMenuItem);
+                        }
+                    }
+                    if (secondMenuHad) {
+                        $secondMenus.attr('data-value', item.F_ModuleId);
+                        $('#lr_second_menu_wrap').append($secondMenus);
+                    }
+                    $firstmenus.append($firstMenuItem);
+                }
+            }
+            $('#lr_frame_menu').html($firstmenus);
+
+            // 语言包翻译
+            $('.lr-menu-item-text').each(function () {
+                var $this = $(this);
+                var text = $this.text();
+                learun.language.get(text, function (_text) {
+                    $this.text(_text);
+                    $this.parent().parent().attr('title', _text);
+                });
+            });
+
+        },
+        bind: function () {
+            $("#lr_frame_menu").lrscroll();
+            $("#lr_second_menu_wrap").lrscroll();
+
+            var w = 0;
+            var width = $('.lr-first-menu-list').children().each(function () {
+                w += $(this).outerWidth();
+            });
+            $('.lr-first-menu-list').css({ 'width': w });
+            $('.lr-first-menu-list').parent().css({ 'width': w });
+
+            // 添加点击事件
+            $('#lr_frame_menu .lr-menu-item').on('click', function () {
+                var $obj = $(this);
+                var id = $obj.attr('id');
+                var _module = learun.clientdata.get(['modulesMap', id]);
+                switch (_module.F_Target) {
+                    case 'iframe':// 窗口
+                        if (learun.validator.isNotNull(_module.F_UrlAddress).code) {
+                            learun.frameTab.open(_module);
+                        }
+                        else {
+
+                        }
+                        break;
+                    case 'expand':
+                        if (!$obj.hasClass('active')) {
+
+                            $('#lr_frame_menu .active').removeClass('active');
+                            $obj.addClass('active');
+                            $obj.parent().addClass('active');
+                            var $subMenu = $('#lr_second_menu_wrap');
+                            $subMenu.find('.lr-second-menu-list').hide();
+                            $subMenu.find('.lr-second-menu-list[data-value="' + id + '"]').show();
+                        }
+                        break;
+                }
+            });
+
+            // 添加点击事件
+            $('#lr_second_menu_wrap .lr-menu-item').on('click', function () {
+                var $obj = $(this);
+                var id = $obj.attr('id');
+                var _module = learun.clientdata.get(['modulesMap', id]);
+                switch (_module.F_Target) {
+                    case 'iframe':// 窗口
+                        if (learun.validator.isNotNull(_module.F_UrlAddress).code) {
+                            learun.frameTab.open(_module);
+                        }
+                        else {
+
+                        }
+                        break;
+                    case 'expand':// 打开子菜单
+                        var $ul = $obj.next();
+                        if ($ul.is(':visible')) {
+                            $ul.slideUp(500, function () {
+                                $obj.removeClass('open');
+                            });
+                        }
+                        else {
+                            $ul.slideDown(300, function () {
+                                $obj.addClass('open');
+                            });
+                        }
+                        break;
+                }
+            });
+
+            $('.lr-first-menu-list>li').eq(0).find('a').trigger('click');
+
+            $('#lr_frame_menu_btn').on('click', function () {
+                var $body = $('body');
+                if ($body.hasClass('lr-menu-closed')) {
+                    $body.removeClass('lr-menu-closed');
+                }
+                else {
+                    $body.addClass('lr-menu-closed');
+                }
+            });
+
+
+            $('#lr_second_menu_wrap a').hover(function () {
+                if ($('body').hasClass('lr-menu-closed')) {
+                    var id = $(this).attr('id');
+                    var text = $('#' + id + '>span').text();
+                    layer.tips(text, $(this));
+                }
+            }, function () {
+                if ($('body').hasClass('lr-menu-closed')) {
+                    layer.closeAll('tips');
+                }
+            });
+
+        }
+    };
+
+    meuns.init();
+
+
+
+    var companyMap = {};
+    var departmentMap = {};
+    var userMap = {};
+
+    var imUserId = '';
+
+    var getHeadImg = function (user) {
+        var url = top.$.rootUrl;
+        switch (user.img) {
+            case '0':
+                url += '/Content/images/head/on-girl.jpg';
+                break;
+            case '1':
+                url += '/Content/images/head/on-boy.jpg';
+                break;
+            default:
+                url += '/LR_OrganizationModule/User/GetImg?userId=' + user.id;
+                break;
+        }
+        return url;
+    };
+    // 发送聊天信息
+    var sendMsg = function (msg, time) {
+        var loginInfo = learun.clientdata.get(['userinfo']);
+        learun.clientdata.getAsync('user', {
+            key: loginInfo.userId,
+            callback: function (data, op) {
+                data.id = op.key;
+                var _html = '\
+                <div class="me im-time">'+ (time || '') + '</div>\
+                <div class="im-me">\
+                    <div class="headimg"><img src="'+ getHeadImg(data) + '"></div>\
+                    <div class="arrow"></div>\
+                    <span class="content">'+ msg + '</span>\
+                </div>';
+
+                $('.lr-im-msgcontent .lr-scroll-box').append(_html);
+                $('.lr-im-msgcontent').lrscrollSet('moveBottom');
+            }
+        });
+    };
+    // 接收聊天消息
+    var revMsg = function (userId, msg, time) {
+        learun.clientdata.getAsync('user', {
+            key: userId,
+            callback: function (data, op) {
+                data.id = op.key;
+                var _html = '\
+                <div class="im-time">'+ (time || '') + '</div>\
+                <div class="im-other">\
+                    <div class="headimg"><img src="'+ getHeadImg(data) + '"></div>\
+                    <div class="arrow"></div>\
+                    <span class="content">'+ msg + '</span>\
+                </div>';
+
+
+                $('.lr-im-msgcontent .lr-scroll-box').append(_html);
+                $('.lr-im-msgcontent').lrscrollSet('moveBottom');
+            }
+        });
+    };
+
+    var getTime = function (time) {
+        var d = new Date();
+        var c = d.DateDiff('d', time);
+        if (c <= 1) {
+            return learun.formatDate(time, 'hh:mm:ss');
+        }
+        else {
+            return learun.formatDate(time, 'yyyy/MM/dd');
+        }
+    }
+
+    // 即时通讯
+    var im = {
+        init: function () {
+            this.bind();
+            this.load();
+        },
+        load: function () {
+            // 获取下公司列表
+            learun.clientdata.getAllAsync('company', {
+                callback: function (data) {
+                    $.each(data, function (_id, _item) {
+                        companyMap[_item.parentId] = companyMap[_item.parentId] || [];
+                        _item.id = _id;
+                        companyMap[_item.parentId].push(_item);
+                    });
+                    var $list = $('#lr_im_content_userlist .lr-scroll-box');
+                    $.each(companyMap["0"], function (_index, _item) {
+                        var _html = '\
+                            <div class="lr-im-company-item">\
+                                <div class="lr-im-item-name lr-im-company" data-value="'+ _item.id + '"  data-deep="0" >\
+                                    <i class="fa fa-angle-right"></i>'+ _item.name + '\
+                                </div>\
+                            </div>';
+                        $list.append(_html);
+
+                    });
+                    // 获取部门列表
+                    learun.clientdata.getAllAsync('department', {
+                        callback: function (data) {
+                            $.each(data, function (_id, _item) {
+                                _item.id = _id;
+                                if (_item.parentId == "0") {
+                                    departmentMap[_item.companyId] = departmentMap[_item.companyId] || [];
+                                    departmentMap[_item.companyId].push(_item);
+                                }
+                                else {
+                                    departmentMap[_item.parentId] = departmentMap[_item.parentId] || [];
+                                    departmentMap[_item.parentId].push(_item);
+                                }
+                            });
+
+                            // 获取人员数据
+                            learun.clientdata.getAllAsync('user', {
+                                callback: function (data) {
+                                    $.each(data, function (_id, _item) {
+                                        _item.id = _id;
+                                        if (_item.departmentId) {
+                                            userMap[_item.departmentId] = userMap[_item.departmentId] || [];
+                                            userMap[_item.departmentId].push(_item);
+                                        }
+                                        else if (_item.companyId) {
+                                            userMap[_item.companyId] = userMap[_item.companyId] || [];
+                                            userMap[_item.companyId].push(_item);
+                                        }
+                                    });
+
+                                    // 获取最近联系人列表
+                                    learun.im.getContacts(function (data) {
+                                        var $userList = $('#lr_immsg_userlist .lr-scroll-box');
+                                        $.each(data, function (_index, _item) {
+                                            var html = '\
+                                            <div class="msg-item'+ (_item.F_IsRead == '1' ? 'imHasMsg' : '') + '" data-value="' + _item.F_OtherUserId + '" >\
+                                                <div class="photo">\
+                                                    <img src="'+ top.$.rootUrl + '/Content/images/head/on-boy.jpg">\
+                                                    <div class="point"></div>\
+                                                </div>\
+                                                <div class="name"></div>\
+                                                <div class="msg">'+ (_item.F_Content || '') + '</div>\
+                                                <div class="date">'+ getTime(_item.F_Time) + '</div>\
+                                            </div>';
+                                            $userList.append(html);
+                                            learun.clientdata.getAsync('user', {
+                                                key: _item.F_OtherUserId,
+                                                callback: function (data, op) {
+                                                    var $item = $userList.find('[data-value="' + op.key + '"]');
+                                                    $item.find('.name').text(data.name);
+                                                    data.id = op.key;
+                                                    $item.find('img').attr('src', getHeadImg(data));
+                                                    $item = null;
+                                                }
+                                            });
+                                        });
+                                    });
+
+                                }
+                            });
+
+                        }
+                    });
+
+                }
+            });
+        },
+        bind: function () {
+            $('#lr_immsg_userlist').lrscroll();
+            $('#lr_im_content_userlist').lrscroll();
+            $('.lr-im-msgcontent').lrscroll();
+
+            // 打开关闭聊天窗
+            $('.lr-im-bell').on('click', function () {
+                var $this = $(this);
+                if ($this.hasClass('open')) {
+                    $this.removeClass('open');
+                    $('.lr-im-body').removeClass('open');
+
+                    $('.lr-im-black-overlay').hide();
+                    imUserId = '';
+                }
+                else {
+                    $this.addClass('open');
+                    $('.lr-im-bell .point').hide();
+                    $('.lr-im-body').addClass('open');
+                }
+            });
+
+            // 最近消息 与 联系人之间的切换
+            $('.lr-im-title .title-item').on('click', function () {
+                var $this = $(this);
+                if (!$this.hasClass('active')) {
+                    $('.lr-im-body>.active').removeClass('active');
+                    $('.lr-im-title>.active').removeClass('active');
+                    $this.addClass('active');
+                    var v = $this.attr('data-value');
+                    $('#' + v).addClass('active');
+                }
+            });
+
+            // 联系人
+            $('#lr_im_content_userlist .lr-scroll-box').on('click', function (e) {
+                e = e || window.event;
+                var et = e.target || e.srcElement;
+                var $et = $(et);
+
+                if (et.tagName == 'IMG' || et.tagName == 'I') {
+                    $et = $et.parent();
+                }
+
+                if ($et.hasClass('lr-im-company')) {// 点击公司项
+                    // 判断是否是打开的状态
+                    if ($et.hasClass('open')) {
+                        $et.removeClass('open');
+                        $et.parent().find('.lr-im-user-list').remove();
+
+                    } else {
+                        var id = $et.attr('data-value');
+                        var deep = parseInt($et.attr('data-deep'));
+                        var $list = $('<div class="lr-im-user-list" ></div>');
+                        $list.css({ 'padding-left': '10px' });
+                        var flag = false;
+                        // 加载员工
+                        $.each(userMap[id] || [], function (_index, _item) {
+                            var _html = '\
+                            <div class="lr-im-company-item">\
+                                <div class="lr-im-item-name lr-im-user" data-value="'+ _item.id + '" >\
+                                     <img src="'+ getHeadImg(_item) + '" >' + _item.name + '\
+                                </div>\
+                            </div>';
+                            $list.append(_html);
+                            flag = true;
+                        });
+                        // 加载部门
+                        $.each(departmentMap[id] || [], function (_index, _item) {
+                            var _html = '\
+                            <div class="lr-im-company-item">\
+                                <div class="lr-im-item-name lr-im-department" data-value="'+ _item.id + '"  data-deep="' + (deep + 1) + '" >\
+                                    <i class="fa fa-angle-right"></i>'+ _item.name + '\
+                                </div>\
+                            </div>';
+                            $list.append(_html);
+                            flag = true;
+                        });
+                        // 加载下属公司
+                        $.each(companyMap[id] || [], function (_index, _item) {
+                            var _html = '\
+                            <div class="lr-im-company-item">\
+                                <div class="lr-im-item-name lr-im-company" data-value="'+ _item.id + '"  data-deep="' + (deep + 1) + '" >\
+                                    <i class="fa fa-angle-right"></i>'+ _item.name + '\
+                                </div>\
+                            </div>';
+                            $list.append(_html);
+                            flag = true;
+                        });
+
+
+
+                        if (flag) {
+                            $et.parent().append($list);
+                        }
+                        $et.addClass('open');
+                    }
+                    return false;
+                }
+                else if ($et.hasClass('lr-im-department')) {
+                    // 判断是否是打开的状态
+                    if ($et.hasClass('open')) {
+                        $et.removeClass('open');
+                        $et.parent().find('.lr-im-user-list').remove();
+
+                    } else {
+                        var id = $et.attr('data-value');
+                        var deep = parseInt($et.attr('data-deep'));
+                        var $list = $('<div class="lr-im-user-list" ></div>');
+                        $list.css({ 'padding-left': '10px' });
+                        var flag = false;
+                        // 加载员工
+                        $.each(userMap[id] || [], function (_index, _item) {
+                            var _html = '\
+                            <div class="lr-im-company-item">\
+                                <div class="lr-im-item-name lr-im-user" data-value="'+ _item.id + '" >\
+                                     <img src="'+ getHeadImg(_item) + '" >' + _item.name + '\
+                                </div>\
+                            </div>';
+                            $list.append(_html);
+                            flag = true;
+                        });
+                        // 加载部门
+                        $.each(departmentMap[id] || [], function (_index, _item) {
+                            var _html = '\
+                            <div class="lr-im-company-item">\
+                                <div class="lr-im-item-name lr-im-department" data-value="'+ _item.id + '"  data-deep="' + (deep + 1) + '" >\
+                                    <i class="fa fa-angle-right"></i>'+ _item.name + '\
+                                </div>\
+                            </div>';
+                            $list.append(_html);
+                            flag = true;
+                        });
+
+                        if (flag) {
+                            $et.parent().append($list);
+                        }
+                        $et.addClass('open');
+
+                    }
+
+                }
+                else if ($et.hasClass('lr-im-user')) {
+                    // 如果是用户列表
+                    // 1.打开聊天窗口
+                    // 2.添加一条最近联系人数据（如果没有添加的话）
+                    // 3.获取最近的20条聊天数据或者最近的聊天信息
+
+
+                    var id = $et.attr('data-value');
+                    var $userList = $('#lr_immsg_userlist .lr-scroll-box');
+                    var $userItem = $userList.find('[data-value="' + id + '"]');
+
+                    // 更新下最近的联系人列表数据
+                    $('.lr-im-title .title-item').eq(0).trigger('click');
+
+                    imUserId = id;
+                    if ($userItem.length > 0) {
+                        $userList.prepend($userItem);
+                        $userItem.trigger('click');
+                    }
+                    else {
+                        var imgurl = $et.find('img').attr('src');
+                        var _html = '\
+                            <div class="msg-item" data-value="' + id + '" >\
+                                <div class="photo">\
+                                    <img src="'+ imgurl + '">\
+                                    <div class="point"></div>\
+                                </div>\
+                                <div class="name"></div>\
+                                <div class="msg"></div>\
+                                <div class="date"></div>\
+                            </div>';
+                        $userList.prepend(_html);
+                        $userItem = $userList.find('[data-value="' + id + '"]');
+                        // 获取人员数据
+                        learun.clientdata.getAsync('user', {
+                            key: id,
+                            callback: function (data, op) {
+                                $userList.find('[data-value="' + op.key + '"] .name').text(data.name);
+                                $userItem.trigger('click');
+                            }
+                        });
+                        learun.im.addContacts(id);
+                    }
+
+                }
+            });
+            // 最近联系人列表点击
+            $('#lr_immsg_userlist .lr-scroll-box').on('click', function (e) {
+                e = e || window.event;
+                var et = e.target || e.srcElement;
+                var $et = $(et);
+
+                if (!$et.hasClass('msg-item')) {
+                    $et = $et.parents('.msg-item');
+                }
+                if ($et.length > 0) {
+                    if (!$et.hasClass('active')) {
+                        var name = $et.find('.name').text();
+                        imUserId = $et.attr('data-value');
+
+                        $('#lr_immsg_userlist .lr-scroll-box .active').removeClass('active');
+                        $et.addClass('active');
+
+                        $('.lr-im-black-overlay').show();
+                        var $imdialog = $('.lr-im-dialog');
+                        $imdialog.find('.im-title').text("与" + name + "对话中");
+
+                        $('#lr_im_input').val('');
+                        $('#lr_im_input').select();
+
+                        $('.lr-im-msgcontent .lr-scroll-box').html('');
+                        // 获取聊天信息
+                        learun.im.getMsgList(imUserId, function (data) {
+                            var len = data.length;
+                            if (len > 0) {
+                                for (var i = len - 1; i >= 0; i--) {
+                                    var _item = data[i];
+                                    learun.clientdata.getAsync('user', {
+                                        key: _item.userId,
+                                        msg: _item.content,
+                                        time: _item.time,
+                                        callback: function (data, op) {
+                                            data.id = op.key;
+                                            var loginInfo = learun.clientdata.get(['userinfo']);
+                                            var _html = '\
+                                            <div class="im-time '+ (loginInfo.userId == op.key ? 'me' : '') + ' ">' + op.time + '</div>\
+                                            <div class="'+ (loginInfo.userId == op.key ? 'im-me' : 'im-other') + '">\
+                                                <div class="headimg"><img src="'+ getHeadImg(data) + '"></div>\
+                                                <div class="arrow"></div>\
+                                                <span class="content">'+ op.msg + '</span>\
+                                            </div>';
+                                            $('.lr-im-msgcontent .lr-scroll-box').prepend(_html);
+                                        }
+                                    });
+                                }
+                                $('.lr-im-msgcontent').lrscrollSet('moveBottom');
+                            }
+                        }, $et.hasClass('imHasMsg'));
+                        $et.removeClass('imHasMsg');
+                        learun.im.updateContacts(imUserId);
+                    }
+                }
+            });
+
+
+            // 联系人搜索
+            $('.lr-im-search input').on("keypress", function (e) {
+                e = e || window.event;
+                if (e.keyCode == "13") {
+                    var $this = $(this);
+                    var keyword = $this.val();
+                    var $list = $('#lr_im_content_userlist .lr-scroll-box');
+                    $list.html("");
+                    if (keyword) {
+                        learun.clientdata.getAllAsync('user', {
+                            callback: function (data) {
+                                $.each(data, function (_index, _item) {
+                                    if (_item.name.indexOf(keyword) != -1) {
+                                        _item.id = _index;
+                                        var _html = '\
+                                        <div class="lr-im-company-item">\
+                                            <div class="lr-im-item-name lr-im-user" data-value="'+ _item.id + '" >\
+                                                 <img src="'+ getHeadImg(_item) + '" >' + _item.name + '\
+                                            </div>\
+                                        </div>';
+                                        $list.append(_html);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    else {
+                        $.each(companyMap["0"], function (_index, _item) {
+                            var _html = '\
+                            <div class="lr-im-company-item">\
+                                <div class="lr-im-item-name lr-im-company" data-value="'+ _item.id + '"  data-deep="0" >\
+                                    <i class="fa fa-angle-right"></i>'+ _item.name + '\
+                                </div>\
+                            </div>';
+                            $list.append(_html);
+                        });
+                    }
+
+                }
+            });
+
+            // 发送消息
+            $('#lr_im_input').on("keypress", function (e) {
+                e = e || window.event;
+                if (e.keyCode == "13") {
+                    var text = $(this).val();
+                    $(this).val('');
+                    if (text.replace(/(^\s*)|(\s*$)/g, "") != '') {
+                        var time = learun.im.sendMsg(imUserId, text);
+                        sendMsg(text, time);
+                        var $userItem = $('#lr_immsg_userlist .lr-scroll-box [data-value="' + imUserId + '"]');
+                        $userItem.find('.msg').text(text);
+                        $userItem.find('.date').text(getTime(learun.getDate('yyyy-MM-dd hh:mm:ss')));
+                        $userItem = null;
+                    }
+                    return false;
+                }
+            });
+            // 注册消息接收
+            learun.im.registerRevMsg(function (userId, msg, dateTime) {
+                var $userList = $('#lr_immsg_userlist .lr-scroll-box');
+                var $userItem = $userList.find('[data-value="' + userId + '"]');
+                // 判断当前账号是否打开聊天窗口
+                if (userId == imUserId) {
+                    revMsg(userId, msg, dateTime);
+                    learun.im.updateContacts(userId);
+                    $userItem.find('.msg').text(msg);
+                    $userItem.find('.date').text(getTime(dateTime));
+                }
+                else {
+                    if ($userItem.length > 0) {
+                        $userList.prepend($userItem);
+                        if (!$userItem.hasClass('imHasMsg')) {
+                            $userItem.addClass('imHasMsg');
+                        }
+                        $userItem.find('.msg').text(msg);
+                        $userItem.find('.date').text(getTime(dateTime));
+                    }
+                    else {
+                        var html = '\
+                            <div class="msg-item" data-value="' + userId + '" >\
+                                <div class="photo">\
+                                    <img src="'+ top.$.rootUrl + '/Content/images/head/on-boy.jpg">\
+                                    <div class="point"></div>\
+                                </div>\
+                                <div class="name"></div>\
+                                <div class="msg">'+ msg + '</div>\
+                                <div class="date">'+ getTime(dateTime) + '</div>\
+                            </div>';
+                        $userList.prepend(html);
+                        learun.clientdata.getAsync('user', {
+                            key: userId,
+                            callback: function (data, op) {
+                                var $item = $userList.find('[data-value="' + op.key + '"]');
+                                $item.find('.name').text(data.name);
+                                data.id = op.key;
+                                $item.find('img').attr('src', getHeadImg(data));
+                                $item = null;
+                            }
+                        });
+                    }
+                }
+                if (!$('.lr-im-bell').hasClass('open')) {
+                    $('.lr-im-bell .point').show();
+                }
+            });
+
+
+            // 查看聊天记录
+            $('#lr_im_look_msg_btn').on('click', function () {
+                learun.layerForm({
+                    id: 'LookMsgIndex',
+                    title: '查看聊天记录-' + $('#lr_im_msglist .lr-im-right .lr-im-touser').text(),
+                    url: top.$.rootUrl + '/LR_IM/IMMsg/Index?userId=' + imUserId,
+                    width: 800,
+                    height: 500,
+                    maxmin: true,
+                    btn: null
+                });
+            });
+
+            $('.im-close').on('click', function () {
+                $('#lr_immsg_userlist .lr-scroll-box [data-value="' + imUserId + '"]').removeClass('active');
+                $('.lr-im-black-overlay').hide();
+                imUserId = '';
+            });
+        }
+    };
+
+    im.init();
+};
