@@ -7,10 +7,6 @@ using System.Web.Mvc;
 namespace Learun.Application.Web.Controllers
 {
     /// <summary>
-
-
-
-
     /// 错误页控制器
     /// </summary>
     public class ErrorController : Controller

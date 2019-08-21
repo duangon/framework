@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Diagnostics;
+using Learun.Application.Web.Controllers;
 
 namespace Learun.Application.Web
 {
@@ -31,11 +32,11 @@ namespace Learun.Application.Web
             cache.RemoveAll(5);
             cache.RemoveAll(6);
             ModifyInMemory.ActivateMemoryPatching();
-            var actions = ControllerHelper.GetALLPageByReflection();
-            foreach (var item in actions)
-            {
-                Debug.WriteLine(item);
-            }
+            //var actions = ControllerHelper.GetALLPageByReflection();
+            //foreach (var item in actions)
+            //{
+            //    Debug.WriteLine(item);
+            //}
         }
 
         /// <summary>
@@ -45,7 +46,24 @@ namespace Learun.Application.Web
         /// <param name="e">EventArgs</param>
         protected void Application_Error(object sender, EventArgs e)
         {
-            var lastError = Server.GetLastError();
+            Exception exception = Server.GetLastError();
+            HttpException httpException = exception as HttpException;
+
+            RouteData routeData = new RouteData();
+            routeData.Values.Add("controller", "Error");
+
+            switch (httpException.GetHttpCode())
+            {
+                case 404:
+                    routeData.Values.Add("action", "ErrorPath404");
+                    break;
+            }
+
+            Response.Clear();
+            Server.ClearError();
+            Response.TrySkipIisCustomErrors = true;
+            IController errorController = new ErrorController();
+            errorController.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
         }
     }
 }

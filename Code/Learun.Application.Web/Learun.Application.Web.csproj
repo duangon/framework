@@ -228,6 +228,7 @@
     <Compile Include="App_Start\01 Handler\HandlerLoginAttribute.cs" />
     <Compile Include="App_Start\01 Handler\HandlerValidateAntiForgeryTokenAttribute.cs" />
     <Compile Include="App_Start\01 Handler\MvcControllerBase.cs" />
+    <Compile Include="App_Start\01 Handler\RecordLog.cs" />
     <Compile Include="App_Start\01 Handler\ResultFillters.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />

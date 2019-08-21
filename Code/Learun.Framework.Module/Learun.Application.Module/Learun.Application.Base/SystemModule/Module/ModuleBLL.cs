@@ -8,10 +8,6 @@ using System.Collections.Generic;
 namespace Learun.Application.Base.SystemModule
 {
     /// <summary>
-
-
-
-    /// 日 期：2017.03.08
     /// 功能模块(缓存在0号库)
     /// 功能模块缓存结构
     /// </summary>
