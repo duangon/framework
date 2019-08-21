@@ -5,10 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Learun.Application.Organization
 {
     /// <summary>
-
-
-
-    /// 日 期：2017.03.04
     /// 岗位管理
     /// </summary>
     public class PostEntity

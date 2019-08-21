@@ -4,10 +4,6 @@ using System.Web.Mvc;
 namespace Learun.Application.Web.Areas.LR_OrganizationModule.Controllers
 {
     /// <summary>
-
-
-
-
     /// 岗位管理
     /// </summary>
     public class PostController : MvcControllerBase

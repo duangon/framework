@@ -10,10 +10,6 @@ using System.Web.Mvc;
 namespace Learun.Application.Web.Controllers
 {
     /// <summary>
-
-
-
-    /// 日 期：2017.03.07
     /// 通用控制器,处理通用的接口
     /// </summary>
     [HandlerLogin(FilterMode.Ignore)]
