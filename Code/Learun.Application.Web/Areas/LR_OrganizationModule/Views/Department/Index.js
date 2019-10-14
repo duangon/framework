@@ -101,10 +101,9 @@ var bootstrap = function ($, learun) {
                         { label: "分机号", name: "F_InnerPhone", width: 60, align: "center" },
                         { label: "备注", name: "F_Description", width: 200, align: "left"}
                 ],
-
                 isTree: true,
                 mainId: 'F_DepartmentId',
-                parentId: 'F_ParentId',
+                parentId: 'F_ParentId'
             });
         },
         search: function (param) {

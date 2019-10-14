@@ -152,7 +152,7 @@ var bootstrap = function ($, learun) {
                 switch (_module.F_Target) {
                     case 'iframe':// 窗口
                         if (learun.validator.isNotNull(_module.F_UrlAddress).code) {
-                            $("#lr_iframe_0").attr("src", _module.F_UrlAddress);
+                            learun.frameTab.open(_module);
                         }
                         else {
 

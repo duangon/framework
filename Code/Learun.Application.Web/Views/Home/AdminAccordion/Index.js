@@ -95,16 +95,16 @@ var bootstrap = function ($, learun) {
             });
 
             //设置高度
-            var height = ($(window).height() - 95) + "px";
-            $("#lr_frame_main").css("height", height);
+            //var height = ($(window).height() - 95) + "px";
+            //$("#lr_frame_main").css("height", height);
 
-            $(window).resize(function (e) {
-                window.setTimeout(function () {
-                    var height = ($(window).height() - 95) + "px";
-                    $("#lr_frame_main").css("height", height);
-                }, 200);
-                e.stopPropagation();
-            });
+            //$(window).resize(function (e) {
+            //    window.setTimeout(function () {
+            //        var height = ($(window).height() - 95) + "px";
+            //        $("#lr_frame_main").css("height", height);
+            //    }, 200);
+            //    e.stopPropagation();
+            //});
 
         },
         bind: function () {

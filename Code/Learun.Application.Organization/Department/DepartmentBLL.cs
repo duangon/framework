@@ -3,6 +3,7 @@ using Learun.Cache.Factory;
 using Learun.Util;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Learun.Application.Organization
 {
@@ -69,6 +70,7 @@ namespace Learun.Application.Organization
                 {
                     list = list.FindAll(t => t.F_FullName.Contains(keyWord) || t.F_EnCode.Contains(keyWord) || t.F_ShortName.Contains(keyWord));
                 }
+                list = list.OrderBy(x => x.F_EnCode).ToList();
                 return list;
             }
             catch (Exception ex)

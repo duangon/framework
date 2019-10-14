@@ -71,9 +71,9 @@ var bootstrap = function ($, learun) {
                     btn: null,
                     maxmin: true,
                     end: function () {
-                        if (top._learunSelectIcon != '')
+                        if (top._LearunSelectIcon != '')
                         {
-                            $('#F_Icon').val(top._learunSelectIcon);
+                            $('#F_Icon').val(top._LearunSelectIcon);
                         }
                     }
                 });
