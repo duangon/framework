@@ -48,7 +48,7 @@ namespace Learun.Application.Web.Controllers
                 case "5":
                     return View("AnShanMining");          // 矿业公司版
                 default:
-                    return View("Default");      // 经典版本
+                    return View("AnShanMining");
             }
         }
         #endregion
