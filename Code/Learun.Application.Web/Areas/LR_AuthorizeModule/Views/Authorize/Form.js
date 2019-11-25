@@ -15,10 +15,16 @@ var bootstrap = function ($, learun) {
 
     var treeData;
     var checkModuleIds = [];
-
+    //折叠树节点
+    function foldTreeNode(filter) {
+        $(filter).find('.lr-tree-node-expanded').each(function (i, item) {
+            $(item).children('.lr-tree-ec-icon').trigger('click');
+        });
+    }
     function setTreeData1() {
         if (!!selectData) {
             $('#step-1').lrtreeSet('setCheck', selectData.modules);
+            foldTreeNode('#step-1');
         }
         else {
             setTimeout(setTreeData1,100);
@@ -27,6 +33,7 @@ var bootstrap = function ($, learun) {
     function setTreeData2() {
         if (!!selectData) {
             $('#step-2').lrtreeSet('setCheck', selectData.buttons);
+            foldTreeNode('#step-2');
         }
         else {
             setTimeout(setTreeData2, 100);
@@ -35,6 +42,7 @@ var bootstrap = function ($, learun) {
     function setTreeData3() {
         if (!!selectData) {
             $('#step-3').lrtreeSet('setCheck', selectData.columns);
+            foldTreeNode('#step-3');
         }
         else {
             setTimeout(setTreeData3, 100);
@@ -43,6 +51,7 @@ var bootstrap = function ($, learun) {
     function setTreeData4() {
         if (!!selectData) {
             $('#step-4').lrtreeSet('setCheck', selectData.forms);
+            foldTreeNode('#step-4');
         }
         else {
             setTimeout(setTreeData4, 100);
